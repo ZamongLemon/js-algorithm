@@ -1,34 +1,11 @@
 function solution(a, b) {
-  const getarr = (n) => {
-    var answer = [];
+  const g = (i, j) => (j === 0 ? i : g(j, i % j));
+  b /= g(a, b);
 
-    while (true) {
-      for (let i = 2; i < Infinity; i++) {
-        if (n % i == 0) {
-          n = n / i;
-          answer.push(i);
-          break;
-        }
-      }
-      if (n == 1) break;
-    }
-    return answer;
-  };
+  while (b % 2 == 0) b /= 2;
+  while (b % 5 == 0) b /= 5;
 
-  const arr1 = getarr(a);
-  const arr2 = getarr(b);
-  const arr2len = arr2.length;
-  arr1.forEach((element) => {
-    for (let i = 0; i < arr2len; i++) if (element === arr2[i]) arr2[i] = 1;
-  });
-  let answer = 1;
-  arr2.forEach((element) => {
-    if (element !== 2 && element !== 5 && element !== 1) {
-      answer = 2;
-      return;
-    }
-  });
-  return answer;
+  return b == 1 ? 1 : 2;
 }
 
 console.log(solution(7, 20));
